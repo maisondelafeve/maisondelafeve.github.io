@@ -206,6 +206,7 @@ fieldset.pick legend { font-family: var(--display); font-size: 1.25rem; padding:
 .ccard p { color: var(--muted); }
 .ccard .num { font-size: 1.35rem; font-weight: 700; user-select: all; }
 .ccard .btn, .ccard .insta-btn { justify-self: start; }
+.ccard .mail { justify-self: start; font-weight: 600; color: var(--fg); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; overflow-wrap: anywhere; }
 .insta-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--accent-fg); border: 2px solid var(--accent); border-radius: 999px; padding: 6px 16px 6px 12px; font: inherit; font-weight: 700; font-size: 0.92rem; cursor: pointer; transition: transform .15s ease; }
 .insta-btn:hover { transform: translateY(-2px); }
 .insta-btn .ig { width: 20px; height: 20px; flex: none; }
@@ -568,8 +569,9 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
       </div>
       <div class="ccards">
         <div class="ccard">
-          <h3>Par téléphone ou message</h3>
+          <h3>Téléphone, message ou e-mail</h3>
           <span class="num">+41 77 987 72 82</span>
+          <a class="mail" href="mailto:maisondelafeve@gmail.com">maisondelafeve@gmail.com</a>
           <a class="btn" href="https://wa.me/41779877282?text=Bonjour%2C%20j%E2%80%99ai%20une%20question%20pour%20la%20Maison%20de%20la%20F%C3%A8ve%20%3A%20" target="_blank" rel="noopener">Poser une question sur WhatsApp</a>
         </div>
         <div class="ccard">
@@ -588,7 +590,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
 
 <footer>
   <div class="wrap">
-    <p>© 2026 Maison de la Fève · La Fève, la vraie.</p>
+    <p>© 2026 Maison de la Fève · La Fève, la vraie. · <a href="mailto:maisondelafeve@gmail.com">maisondelafeve@gmail.com</a></p>
     <a href="#accueil">Haut de page ↑</a>
   </div>
 </footer>
