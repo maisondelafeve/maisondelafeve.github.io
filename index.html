@@ -19,11 +19,11 @@
 <style>
 /* Layout: sticky bar, hero with the annotated logo (like the team's sketch), chocolate band for the seasons, project facts, order form that builds a message. */
 :root {
-  --bg: #eef0e4;        /* feuille pâle */
+  --bg: #fff8dc;        /* feuille pâle */
   --surface: #f8f9f1;
   --fg: #2b1b14;        /* cacao */
   --muted: #65554a;
-  --accent: #3d5a27;    /* feuille */
+  --accent: #c04000;    /* feuille */
   --accent-fg: #f4f6ea;
   --gold: #b9822a;      /* fève ouverte */
   --line: #cdd2bb;
@@ -39,14 +39,14 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #1a130f; --surface: #241a14; --fg: #f0e8da; --muted: #b8a898;
-    --accent: #a6c06c; --accent-fg: #1a130f; --gold: #e0a94f; --line: #3b2d24;
+    --accent: #c04000; --accent-fg: #1a130f; --gold: #b9822a; --line: #3b2d24;
     --pod: #8a5a3d; --cavity: #e8d6b8; --band: #0f0a07; --band-fg: #f3ead9; --band-gold: #e0a94f;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #1a130f; --surface: #241a14; --fg: #f0e8da; --muted: #b8a898;
-  --accent: #a6c06c; --accent-fg: #1a130f; --gold: #e0a94f; --line: #3b2d24;
+  --accent: #c04000 ; --accent-fg: #1a130f; --gold: #b9822a; --line: #3b2d24;
   --pod: #8a5a3d; --cavity: #e8d6b8; --band: #0f0a07; --band-fg: #f3ead9; --band-gold: #e0a94f;
   color-scheme: dark;
 }
@@ -150,6 +150,9 @@ textarea { min-height: 96px; resize: vertical; }
 
 /* Boîtes */
 .boxes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.boxes.flavors { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 32px; }
+.boxes.flavors .boxcard { grid-template-columns: minmax(0, 1fr); gap: 12px; text-align: center; }
+.boxes.flavors .boxart img { display: block; width: 100%; height: auto; max-width: 220px; margin-inline: auto; }
 .boxcard { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); gap: 24px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
 .boxart svg { display: block; width: 100%; height: auto; max-width: 220px; margin-inline: auto; }
 .box-body { fill: var(--band); }
@@ -194,12 +197,14 @@ fieldset.pick legend { font-family: var(--display); font-size: 1.25rem; padding:
 .contact-section .wrap { display: grid; gap: 32px; }
 
 /* Interrupteur d'ambiance, accroché sous la barre */
-.ig-round { width: 42px; height: 42px; display: inline-grid; place-items: center; padding: 0; border-radius: 50%; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-fg); cursor: pointer; transition: transform .15s ease; }
+.ig-round, .fb-round { width: 42px; height: 42px; display: inline-grid; place-items: center; padding: 0; border-radius: 50%; border: 2px solid var(--accent); background: var(--accent); color: var(--accent-fg); cursor: pointer; transition: transform .15s ease; }
 .ig-round, .insta-btn { text-decoration: none; }
-.ig-round:hover { transform: translateY(-2px); }
+.fb-round { text-decoration: none; }
+.ig-round:hover, .fb-round:hover { transform: translateY(-2px); }
 .ig-round .ig { width: 21px; height: 21px; }
+.fb-round .fb { width: 21px; height: 21px; }
 /* Contact */
-@media (prefers-reduced-motion: reduce) { .mode-thumb, .ig-round { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .mode-thumb, .ig-round, .fb-round { transition: none; } }
 
 .ccards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .ccard { display: grid; gap: 12px; align-content: start; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; min-width: 0; }
@@ -283,7 +288,7 @@ fieldset.pick legend { font-family: var(--display); font-size: 1.25rem; padding:
   .top nav { justify-content: space-between; gap: 0 8px; font-size: 0.88rem; }
   .nav-l { display: none; }
   .nav-s { display: inline; }
-  .ig-round { width: 38px; height: 38px; }
+  .ig-round, .fb-round { width: 38px; height: 38px; }
   .contact-btn { padding: 5px 14px; font-size: 0.88rem; }
 }
 
@@ -321,12 +326,13 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#accueil" aria-label="Maison de la Fève, accueil">
-      <svg viewBox="16 9 740 390" role="img" aria-hidden="true"><use href="#icon"/></svg>
+      <!--<svg viewBox="16 9 740 390" role="img" aria-hidden="true"><use href="#icon"/></svg> -->
+      <img src="images/logo.png" alt="" width="40px"/>
       <span>Maison de la Fève</span>
     </a>
     <nav aria-label="Navigation principale">
       <a href="#chocolat"><span class="nav-l">Le chocolat</span><span class="nav-s">Chocolat</span></a>
-      <a href="#boites"><span class="nav-l">Les boîtes</span><span class="nav-s">Boîtes</span></a>
+      <a href="#boites"><span class="nav-l">Les produits</span><span class="nav-s">Boîtes</span></a>
       <a href="#occasions"><span class="nav-l">Les occasions</span><span class="nav-s">Occasions</span></a>
       <a href="#commander">Commander</a>
       <a href="#projet"><span class="nav-l">Le projet</span><span class="nav-s">Projet</span></a>
@@ -334,6 +340,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
     <div class="hdr-actions">
       <a class="contact-btn" href="#contact">Nous contacter</a>
       <a class="ig-round" href="https://www.instagram.com/maisondelafeve/" target="_blank" rel="noopener" aria-label="Instagram de la Maison de la Fève" title="Instagram"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a class="fb-round" href="https://www.facebook.com/share/19g2NUQdTd/" target="_blank" rel="noopener" aria-label="Facebook de la Maison de la Fève" title="Facebook"><svg class="fb" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.4 21v-8h2.7l.4-3h-3.1V8.1c0-.9.3-1.5 1.6-1.5h1.7V3.9c-.3 0-1.3-.1-2.5-.1-2.5 0-4.2 1.5-4.2 4.3V10H7.3v3h2.7v8h3.4z"/></svg></a>
     </div>
   </div>
 
@@ -348,12 +355,12 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
       <div>
         <p class="eyebrow">Mini-entreprise · Collège St-Michel</p>
         <h1 style="margin-top:14px">La Fève,<br><em>la vraie.</em></h1>
-        <p class="lead">Du chocolat artisanal allié à des ingrédients originaux, élaboré avec la chocolaterie Leemann’s, en Gruyère. Pralinés en boîtes de 9 ou de 16, pour la Saint-Nicolas, Noël et bien d’autres occasions.</p>
+        <p class="lead">Du chocolat artisanal allié à des ingrédients originaux, élaboré avec la chocolaterie Leemann’s à Bulle. Savourez nos pralinés pour chaque occasion.</p>
         <div class="cta-row">
           <a class="btn" href="#commander">Commander</a>
-          <a class="btn ghost" href="#boites">Voir les boîtes</a>
+          <a class="btn ghost" href="#boites">Voir les produits</a>
         </div>
-        <p class="where">Six étudiants et une chocolaterie de Gruyère.</p>
+        <p class="where"></p>
       </div>
       <div class="hero-art">
         <img src="images/logo.png" />
@@ -371,7 +378,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <div>
           <span class="tag">artisanal</span>
           <h3>Fait à la main</h3>
-          <p>Du chocolat artisanal, pensé par notre équipe et travaillé avec soin.</p>
+          <p>Du chocolat artisanal, pensé par notre équipe et élaboré avec soin.</p>
         </div>
         <div>
           <span class="tag">original</span>
@@ -379,27 +386,53 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
           <p>Chaque création associe le chocolat à des ingrédients originaux, avec des recettes concoctées pour l’occasion.</p>
         </div>
         <div>
-          <span class="tag">Gruyère</span>
-          <h3>Avec Leemann’s</h3>
+          <span class="tag">local</span>
+          <h3>Conçu à Fribourg (Bulle)</h3>
           <p>Le tout est élaboré en collaboration avec la chocolaterie Leemann’s, bien installée en Gruyère.</p>
         </div>
       </div>
-      <p class="quote">Après une longue journée de travail, ou pendant la pause, <span>savourez ce chocolat d’exception.</span></p>
+      <!-- <p class="quote">Après une longue journée de travail, ou pendant la pause, <span>savourez ce chocolat d’exception.</span></p> -->
     </div>
   </section>
 
   <section id="boites">
     <div class="wrap">
       <div class="head">
-        <p class="eyebrow">Les boîtes</p>
-        <h2>Deux boîtes de pralinés, à offrir ou à partager.</h2>
-        <p>Choisissez la taille qui vous convient. Le contenu de chaque boîte est élaboré avec la chocolaterie Leemann’s.</p>
+        <p class="eyebrow">Les produits</p>
+        <h2>Nos boîtes de pralinés, à offrir ou à partager.</h2>
+        <p>Choisissez la collection et la taille qui vous convient. Le contenu de chaque boîte est élaboré avec la chocolaterie Leemann’s.</p>
+      </div>
+      <div class="head">
+        <h3>La boîte hivernal</h3>
+      </div>
+      <div class="boxes flavors">
+        <article class="boxcard">
+          <div class="boxart"><img src="images/chocolat.jpg" alt="Chocolat exemple"/></div>
+          <div class="boxtext">
+            <h3>Pomme Canelle</h3>
+            <p>Une boîte premium, idéale pour un cadeau ou une pause gourmande à deux.</p>
+          </div>
+        </article>
+        <article class="boxcard">
+          <div class="boxart"><img src="images/chocolat.jpg" alt="Chocolat exemple"/></div>
+          <div class="boxtext">
+            <h3>Poire épice de noël</h3>
+            <p>Une boîte premium, le grand format pour la table de fête ou pour offrir sans compter.</p>
+          </div>
+        </article>
+        <article class="boxcard">
+          <div class="boxart"><img src="images/chocolat.jpg" alt="Chocolat exemple"/></div>
+          <div class="boxtext">
+            <h3>Pêche romarin</h3>
+            <p>Une boîte premium, idéale pour un cadeau ou une pause gourmande à deux.</p>
+          </div>
+        </article>
       </div>
       <div class="boxes">
         <article class="boxcard">
           <div class="boxart"><svg viewBox="0 0 100 100" role="img" aria-label="Boîte de 9 pralinés, 3 rangées de 3"><rect x="0" y="0" width="100" height="100" rx="7" class="box-body"/><g class="box-pr" transform="translate(8 8) scale(.84)"><circle cx="16.7" cy="16.7" r="12.0"/><circle cx="50.0" cy="16.7" r="12.0"/><circle cx="83.3" cy="16.7" r="12.0"/><circle cx="16.7" cy="50.0" r="12.0"/><circle cx="50.0" cy="50.0" r="12.0"/><circle cx="83.3" cy="50.0" r="12.0"/><circle cx="16.7" cy="83.3" r="12.0"/><circle cx="50.0" cy="83.3" r="12.0"/><circle cx="83.3" cy="83.3" r="12.0"/></g></svg></div>
           <div class="boxtext">
-            <h3>Boîte de 9</h3>
+            <h3>Boîte hivernal de 9</h3>
             <p class="count">9 pralinés · 3 × 3</p>
             <p>Une boîte premium, idéale pour un cadeau ou une pause gourmande à deux.</p>
             <button class="btn" type="button" data-pick="9">Choisir la boîte de 9</button>
@@ -408,7 +441,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <article class="boxcard">
           <div class="boxart"><svg viewBox="0 0 100 100" role="img" aria-label="Boîte de 16 pralinés, 4 rangées de 4"><rect x="0" y="0" width="100" height="100" rx="7" class="box-body"/><g class="box-pr" transform="translate(8 8) scale(.84)"><circle cx="12.5" cy="12.5" r="9.0"/><circle cx="37.5" cy="12.5" r="9.0"/><circle cx="62.5" cy="12.5" r="9.0"/><circle cx="87.5" cy="12.5" r="9.0"/><circle cx="12.5" cy="37.5" r="9.0"/><circle cx="37.5" cy="37.5" r="9.0"/><circle cx="62.5" cy="37.5" r="9.0"/><circle cx="87.5" cy="37.5" r="9.0"/><circle cx="12.5" cy="62.5" r="9.0"/><circle cx="37.5" cy="62.5" r="9.0"/><circle cx="62.5" cy="62.5" r="9.0"/><circle cx="87.5" cy="62.5" r="9.0"/><circle cx="12.5" cy="87.5" r="9.0"/><circle cx="37.5" cy="87.5" r="9.0"/><circle cx="62.5" cy="87.5" r="9.0"/><circle cx="87.5" cy="87.5" r="9.0"/></g></svg></div>
           <div class="boxtext">
-            <h3>Boîte de 16</h3>
+            <h3>Boîte hivernal de 16</h3>
             <p class="count">16 pralinés · 4 × 4</p>
             <p>Une boîte premium, le grand format pour la table de fête ou pour offrir sans compter.</p>
             <button class="btn" type="button" data-pick="16">Choisir la boîte de 16</button>
@@ -472,7 +505,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
           <legend>1. Vos boîtes</legend>
           <div class="line">
             <div class="mini"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="7" class="box-body"/><g class="box-pr" transform="translate(8 8) scale(.84)"><circle cx="16.7" cy="16.7" r="12.0"/><circle cx="50.0" cy="16.7" r="12.0"/><circle cx="83.3" cy="16.7" r="12.0"/><circle cx="16.7" cy="50.0" r="12.0"/><circle cx="50.0" cy="50.0" r="12.0"/><circle cx="83.3" cy="50.0" r="12.0"/><circle cx="16.7" cy="83.3" r="12.0"/><circle cx="50.0" cy="83.3" r="12.0"/><circle cx="83.3" cy="83.3" r="12.0"/></g></svg></div>
-            <div class="lbl"><b>Boîte de 9 pralinés</b><small>3 × 3</small></div>
+            <div class="lbl"><b>Boîte hivernale de 9 pralinés</b><small>3 × 3</small></div>
             <div class="step">
               <button type="button" data-dec="q9" aria-label="Retirer une boîte de 9">−</button>
               <input id="q9" name="q9" type="number" min="0" max="50" value="1" inputmode="numeric" aria-label="Nombre de boîtes de 9">
@@ -481,14 +514,14 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
           </div>
           <div class="line">
             <div class="mini"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="7" class="box-body"/><g class="box-pr" transform="translate(8 8) scale(.84)"><circle cx="12.5" cy="12.5" r="9.0"/><circle cx="37.5" cy="12.5" r="9.0"/><circle cx="62.5" cy="12.5" r="9.0"/><circle cx="87.5" cy="12.5" r="9.0"/><circle cx="12.5" cy="37.5" r="9.0"/><circle cx="37.5" cy="37.5" r="9.0"/><circle cx="62.5" cy="37.5" r="9.0"/><circle cx="87.5" cy="37.5" r="9.0"/><circle cx="12.5" cy="62.5" r="9.0"/><circle cx="37.5" cy="62.5" r="9.0"/><circle cx="62.5" cy="62.5" r="9.0"/><circle cx="87.5" cy="62.5" r="9.0"/><circle cx="12.5" cy="87.5" r="9.0"/><circle cx="37.5" cy="87.5" r="9.0"/><circle cx="62.5" cy="87.5" r="9.0"/><circle cx="87.5" cy="87.5" r="9.0"/></g></svg></div>
-            <div class="lbl"><b>Boîte de 16 pralinés</b><small>4 × 4</small></div>
+            <div class="lbl"><b>Boîte hivernale de 16 pralinés</b><small>4 × 4</small></div>
             <div class="step">
               <button type="button" data-dec="q16" aria-label="Retirer une boîte de 16">−</button>
               <input id="q16" name="q16" type="number" min="0" max="50" value="0" inputmode="numeric" aria-label="Nombre de boîtes de 16">
               <button type="button" data-inc="q16" aria-label="Ajouter une boîte de 16">+</button>
             </div>
           </div>
-          <div class="taste">
+          <!--<div class="taste">
             <span class="taste-label">Goût</span>
             <button class="taste-btn" id="gout" type="button" data-soon="Les goûts" aria-label="Choisir un goût : bientôt disponible">
               <span>Choisir un goût</span><em>Bientôt disponible</em>
@@ -503,7 +536,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
               </select>
             </label>
             <label for="quand">Pour quand ? <small>(facultatif)</small><input id="quand" name="quand" placeholder="Ex. avant le 6 décembre"></label>
-          </div>
+          </div>-->
         </fieldset>
 
         <fieldset class="pick">
@@ -601,7 +634,10 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
   var status = document.getElementById("status");
   var current = "";
 
-  function val(id) { return (document.getElementById(id).value || "").trim(); }
+  function val(id) {
+    var el = document.getElementById(id);
+    return el ? (el.value || "").trim() : "";
+  }
   function qty(id) {
     var n = parseInt(document.getElementById(id).value, 10);
     if (isNaN(n) || n < 0) n = 0;
