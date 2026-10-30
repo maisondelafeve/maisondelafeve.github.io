@@ -260,6 +260,11 @@ fieldset.pick legend { font-family: var(--display); font-size: 1.25rem; padding:
   .trio h3 { grid-column: 2; font-size: 1.15rem; }
   .trio p { grid-column: 2; font-size: 0.95rem; line-height: 1.45; }
   .boxes { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .boxes.flavors { grid-template-columns: minmax(0, 1fr); }
+  .boxes.flavors .boxart { grid-column: auto; grid-row: auto; width: 100%; }
+  .boxes.flavors .boxart img { max-width: 100%; }
+  .boxes.flavors .boxtext { display: grid; }
+  .boxes.flavors .boxtext h3, .boxes.flavors .boxtext p { grid-column: auto; }
   .boxcard { grid-template-columns: 104px minmax(0, 1fr); padding: 16px; column-gap: 16px; row-gap: 6px; align-items: start; }
   .boxtext { display: contents; }
   .boxart { grid-row: 1 / span 3; grid-column: 1; }
