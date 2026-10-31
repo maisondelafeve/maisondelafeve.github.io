@@ -146,6 +146,7 @@ textarea { min-height: 96px; resize: vertical; }
 .contact b { font-family: var(--display); font-weight: 400; font-size: 1.2rem; }
 .contact .num { font-size: 1.25rem; font-weight: 700; user-select: all; }
 .note { font-size: 0.88rem; color: var(--muted); }
+.required-mark { color: var(--accent); font-weight: 700; }
 
 
 /* Boîtes */
@@ -508,7 +509,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
 
       <form id="form" novalidate>
         <fieldset class="pick">
-          <legend>1. Vos boîtes</legend>
+          <legend>1. Vos boîtes <span class="required-mark" aria-hidden="true">*</span></legend>
           <div class="line">
             <div class="mini"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="7" class="box-body"/><g class="box-pr" transform="translate(8 8) scale(.84)"><circle cx="16.7" cy="16.7" r="12.0"/><circle cx="50.0" cy="16.7" r="12.0"/><circle cx="83.3" cy="16.7" r="12.0"/><circle cx="16.7" cy="50.0" r="12.0"/><circle cx="50.0" cy="50.0" r="12.0"/><circle cx="83.3" cy="50.0" r="12.0"/><circle cx="16.7" cy="83.3" r="12.0"/><circle cx="50.0" cy="83.3" r="12.0"/><circle cx="83.3" cy="83.3" r="12.0"/></g></svg></div>
             <div class="lbl"><b>Boîte hivernale de 9 pralinés</b><small>3 × 3</small></div>
@@ -548,21 +549,20 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <fieldset class="pick">
           <legend>2. Vos coordonnées</legend>
           <div class="row">
-            <label for="prenom">Prénom<input id="prenom" name="prenom" autocomplete="given-name" required></label>
-            <label for="nom">Nom<input id="nom" name="nom" autocomplete="family-name" required></label>
+            <label for="prenom"><span>Prénom <span class="required-mark" aria-hidden="true">*</span></span><input id="prenom" name="prenom" autocomplete="given-name" required></label>
+            <label for="nom"><span>Nom <span class="required-mark" aria-hidden="true">*</span></span><input id="nom" name="nom" autocomplete="family-name" required></label>
           </div>
           <div class="row">
-            <label for="rue">Rue<input id="rue" name="rue" autocomplete="address-line1"></label>
-            <label for="numero">Numéro<input id="numero" name="numero" autocomplete="address-line2"></label>
+            <label for="rue"><span>Rue <span class="required-mark" aria-hidden="true">*</span></span><input id="rue" name="rue" autocomplete="address-line1" required></label>
+            <label for="numero"><span>Numéro <span class="required-mark" aria-hidden="true">*</span></span><input id="numero" name="numero" autocomplete="address-line2" required></label>
           </div>
           <div class="row">
-            <label for="npa">NPA<input id="npa" name="npa" autocomplete="postal-code" inputmode="numeric"></label>
-            <label for="ville">Ville<input id="ville" name="ville" autocomplete="address-level2"></label>
+            <label for="npa"><span>NPA <span class="required-mark" aria-hidden="true">*</span></span><input id="npa" name="npa" autocomplete="postal-code" inputmode="numeric" required></label>
+            <label for="ville"><span>Ville <span class="required-mark" aria-hidden="true">*</span></span><input id="ville" name="ville" autocomplete="address-level2" required></label>
           </div>
-          <label for="tel">Téléphone <small>(pour vous répondre)</small><input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="+41 79 …"></label>
           <label for="msg">Petit message personnalisé <small>(facultatif, 100 caractères maximum)</small><textarea id="msg" name="msg" maxlength="100" placeholder="Ajoutez un message personnalisé pour un cadeau..."></textarea></label>
         </fieldset>
-        <p class="note">Pas de paiement en ligne. Votre commande reste sur cette page tant que vous ne l’envoyez pas vous-même.</p>
+        <p class="note"><span class="required-mark">*</span> Les champs marqués d’une étoile sont obligatoires. Pas de paiement en ligne : votre commande reste sur cette page tant que vous ne l’envoyez pas vous-même.</p>
       </form>
 
       <div class="side">
@@ -673,8 +673,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
     if (prenom || nom) lines.push("Nom : " + [prenom, nom].filter(Boolean).join(" "));
     var rueNumero = [val("rue"), val("numero")].filter(Boolean).join(" ");
     var npaVille = [val("npa"), val("ville")].filter(Boolean).join(" ");
-    if (rueNumero || npaVille) lines.push("Adresse : " + [rueNumero, npaVille].filter(Boolean).join(", "));
-    if (val("tel")) lines.push("Téléphone : " + val("tel"));
+    lines.push("Adresse : " + [rueNumero, npaVille].filter(Boolean).join(", "));
     if (val("msg")) lines.push("Message : " + val("msg"));
 
     var sum = null;
@@ -689,11 +688,12 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
       ? boxes + " " + plural(boxes, "boîte", "boîtes") + "<small>" + pralines + " pralinés" + (sum != null ? " · " + sum + " CHF" : "") + "</small>"
       : "Aucune boîte<small>Ajoutez au moins une boîte.</small>";
 
-    var ok = !!(boxes && prenom && nom);
+    var requiredFieldsFilled = prenom && nom && val("rue") && val("numero") && val("npa") && val("ville");
+    var ok = !!(boxes && requiredFieldsFilled);
     copyBtn.disabled = !ok;
     wa.setAttribute("aria-disabled", ok ? "false" : "true");
     wa.href = ok ? "https://wa.me/" + PHONE_WA + "?text=" + encodeURIComponent(current) : "#commander";
-    status.textContent = ok ? "" : (boxes ? "Indiquez votre prénom et votre nom pour activer l’envoi." : "Choisissez au moins une boîte.");
+    status.textContent = ok ? "" : (boxes ? "Complétez tous les champs obligatoires (*) pour activer l’envoi." : "Choisissez au moins une boîte.");
   }
 
   function bump(id, delta) {
