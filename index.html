@@ -550,6 +550,14 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
             <label for="prenom">Prénom<input id="prenom" name="prenom" autocomplete="given-name" required></label>
             <label for="nom">Nom<input id="nom" name="nom" autocomplete="family-name" required></label>
           </div>
+          <div class="row">
+            <label for="rue">Rue<input id="rue" name="rue" autocomplete="address-line1"></label>
+            <label for="numero">Numéro<input id="numero" name="numero" autocomplete="address-line2"></label>
+          </div>
+          <div class="row">
+            <label for="npa">NPA<input id="npa" name="npa" autocomplete="postal-code" inputmode="numeric"></label>
+            <label for="ville">Ville<input id="ville" name="ville" autocomplete="address-level2"></label>
+          </div>
           <label for="tel">Téléphone <small>(pour vous répondre)</small><input id="tel" name="tel" type="tel" autocomplete="tel" placeholder="+41 79 …"></label>
           <label for="msg">Message <small>(facultatif)</small><textarea id="msg" name="msg" placeholder="Allergies, dédicace, remarque…"></textarea></label>
         </fieldset>
@@ -661,6 +669,9 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
     lines.push("Occasion : " + val("occasion"));
     if (val("quand")) lines.push("Pour : " + val("quand"));
     if (prenom || nom) lines.push("Nom : " + [prenom, nom].filter(Boolean).join(" "));
+    var rueNumero = [val("rue"), val("numero")].filter(Boolean).join(" ");
+    var npaVille = [val("npa"), val("ville")].filter(Boolean).join(" ");
+    if (rueNumero || npaVille) lines.push("Adresse : " + [rueNumero, npaVille].filter(Boolean).join(", "));
     if (val("tel")) lines.push("Téléphone : " + val("tel"));
     if (val("msg")) lines.push("Message : " + val("msg"));
 
