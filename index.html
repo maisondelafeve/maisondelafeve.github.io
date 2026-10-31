@@ -333,7 +333,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
   <div class="wrap">
     <a class="brand" href="#accueil" aria-label="Maison de la Fève, accueil">
       <!--<svg viewBox="16 9 740 390" role="img" aria-hidden="true"><use href="#icon"/></svg> -->
-      <img src="images/logo.png" alt="" width="40px"/>
+      <img class="theme-logo" src="images/logo-brun.png" data-light-src="images/Logo-brun.png" data-dark-src="images/logo.png" alt="" width="40px"/>
       <span>Maison de la Fève</span>
     </a>
     <nav aria-label="Navigation principale">
@@ -369,7 +369,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <p class="where"></p>
       </div>
       <div class="hero-art">
-        <img src="images/logo.png" />
+        <img class="theme-logo" src="images/logo-brun.png" data-light-src="images/Logo-brun.png" data-dark-src="images/logo.png" alt="Logo Maison de la Fève" />
       </div>
     </div>
   </section>
@@ -747,6 +747,9 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
     var d = isDark();
     modeBtn.setAttribute("aria-pressed", d ? "true" : "false");
     modeBtn.setAttribute("aria-label", d ? "Changer d’ambiance : passer en clair" : "Changer d’ambiance : passer en sombre");
+    Array.prototype.forEach.call(document.querySelectorAll(".theme-logo"), function (logo) {
+      logo.src = logo.getAttribute(d ? "data-dark-src" : "data-light-src");
+    });
   }
   modeBtn.addEventListener("click", function () {
     document.documentElement.setAttribute("data-theme", isDark() ? "light" : "dark");
