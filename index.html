@@ -137,6 +137,8 @@ section { padding-block: clamp(48px, 8vw, 96px); }
 
 /* Commander */
 .order .wrap { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(24px, 5vw, 64px); align-items: start; }
+.order-unavailable { grid-column: 1 / -1; padding: 18px 22px; border: 2px solid var(--accent); border-radius: 16px; background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.order-unavailable h3 { margin-bottom: 6px; color: var(--accent); }
 form { display: grid; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: clamp(20px, 3vw, 32px); }
 .row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 label { display: grid; gap: 6px; font-weight: 700; font-size: 0.9rem; }
@@ -452,7 +454,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
             <h3>Boîte hivernal de 9</h3>
             <p class="count">9 pralinés · 3 × 3</p>
             <p>Une boîte premium, idéale pour un cadeau ou une pause gourmande à deux.</p>
-            <button class="btn" type="button" data-pick="9">Choisir la boîte de 9</button>
+            <button class="btn" type="button" data-pick="9" disabled>Choisir la boîte de 9</button>
           </div>
         </article>
         <article class="boxcard">
@@ -461,7 +463,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
             <h3>Boîte hivernal de 16</h3>
             <p class="count">16 pralinés · 4 × 4</p>
             <p>Une boîte premium, le grand format pour la table de fête ou pour offrir sans compter.</p>
-            <button class="btn" type="button" data-pick="16">Choisir la boîte de 16</button>
+            <button class="btn" type="button" data-pick="16" disabled>Choisir la boîte de 16</button>
           </div>
         </article>
       </div>
@@ -517,8 +519,13 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <p>Réglez les quantités, ajoutez votre nom : la commande se prépare à droite. Envoyez-la-nous par message, on vous répond pour la suite.</p>
       </div>
 
-      <form id="form" novalidate>
-        <fieldset class="pick">
+      <div class="order-unavailable" id="order-unavailable" role="status">
+        <h3>Commandes bientôt disponibles</h3>
+        <p>La prise de commande n’est pas encore ouverte. Le formulaire ci-dessous est présenté à titre d’aperçu ; la sélection, l’envoi WhatsApp et la copie sont désactivés.</p>
+      </div>
+
+      <form id="form" data-order-available="false" novalidate>
+        <fieldset class="pick" disabled>
           <legend>1. Vos boîtes <span class="required-mark" aria-hidden="true">*</span></legend>
           <div class="line">
             <div class="mini"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="0" y="0" width="100" height="100" rx="7" class="box-body"/><g class="box-pr" transform="translate(8 8) scale(.84)"><circle cx="16.7" cy="16.7" r="12.0"/><circle cx="50.0" cy="16.7" r="12.0"/><circle cx="83.3" cy="16.7" r="12.0"/><circle cx="16.7" cy="50.0" r="12.0"/><circle cx="50.0" cy="50.0" r="12.0"/><circle cx="83.3" cy="50.0" r="12.0"/><circle cx="16.7" cy="83.3" r="12.0"/><circle cx="50.0" cy="83.3" r="12.0"/><circle cx="83.3" cy="83.3" r="12.0"/></g></svg></div>
@@ -556,7 +563,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
           </div>-->
         </fieldset>
 
-        <fieldset class="pick">
+        <fieldset class="pick" disabled>
           <legend>2. Vos coordonnées</legend>
           <div class="row">
             <label for="prenom"><span>Prénom <span class="required-mark" aria-hidden="true">*</span></span><input id="prenom" name="prenom" autocomplete="given-name" required></label>
@@ -658,6 +665,15 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
   var copyBtn = document.getElementById("copy");
   var status = document.getElementById("status");
   var current = "";
+  var ordersAvailable = f.getAttribute("data-order-available") === "true";
+
+  Array.prototype.forEach.call(f.querySelectorAll("fieldset"), function (fieldset) {
+    fieldset.disabled = !ordersAvailable;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-pick]"), function (button) {
+    button.disabled = !ordersAvailable;
+  });
+  document.getElementById("order-unavailable").hidden = ordersAvailable;
 
   function val(id) {
     var el = document.getElementById(id);
@@ -699,11 +715,13 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
       : "Aucune boîte<small>Ajoutez au moins une boîte.</small>";
 
     var requiredFieldsFilled = prenom && nom && val("rue") && val("numero") && val("npa") && val("ville");
-    var ok = !!(boxes && requiredFieldsFilled);
+    var ok = !!(ordersAvailable && boxes && requiredFieldsFilled);
     copyBtn.disabled = !ok;
     wa.setAttribute("aria-disabled", ok ? "false" : "true");
     wa.href = ok ? "https://wa.me/" + PHONE_WA + "?text=" + encodeURIComponent(current) : "#commander";
-    status.textContent = ok ? "" : (boxes ? "Complétez tous les champs obligatoires (*) pour activer l’envoi." : "Choisissez au moins une boîte.");
+    status.textContent = !ordersAvailable
+      ? "Aperçu uniquement : la prise de commande n’est pas encore ouverte."
+      : (ok ? "" : (boxes ? "Complétez tous les champs obligatoires (*) pour activer l’envoi." : "Choisissez au moins une boîte."));
   }
 
   function bump(id, delta) {
