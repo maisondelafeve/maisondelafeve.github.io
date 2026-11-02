@@ -79,6 +79,11 @@ a { color: inherit; }
 .wrap { max-width: 1120px; margin-inline: auto; }
 .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
 .hand { font-family: var(--hand); }
+.chocolatier-link { color: #1769aa; text-decoration: underline; text-underline-offset: 0.15em; }
+:root[data-theme="dark"] .chocolatier-link { color: #8ab4f8; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .chocolatier-link { color: #8ab4f8; }
+}
 
 /* Header */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; margin-inline: -20px; padding: 10px 20px; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
@@ -375,7 +380,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
       <div>
         <p class="eyebrow">Mini-entreprise · Collège St-Michel</p>
         <h1 style="margin-top:14px">La Fève,<br><em>la vraie.</em></h1>
-        <p class="lead">Du chocolat artisanal allié à des ingrédients originaux, élaboré avec la chocolaterie Leemann’s à Bulle. Savourez nos pralinés pour chaque occasion.</p>
+        <p class="lead">Du chocolat artisanal allié à des ingrédients originaux, élaboré avec la chocolaterie <a class="chocolatier-link" href="https://www.romain-leemann.ch/" target="_blank" rel="noopener">Leemann’s</a> à Bulle. Savourez nos pralinés pour chaque occasion.</p>
         <div class="cta-row">
           <a class="btn" href="#commander">Commander</a>
           <a class="btn ghost" href="#boites">Voir les produits</a>
@@ -408,7 +413,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <div>
           <span class="tag">local</span>
           <h3>Conçu à Fribourg (Bulle)</h3>
-          <p>Le tout est élaboré en collaboration avec la chocolaterie Leemann’s, bien installée en Gruyère.</p>
+          <p>Le tout est élaboré en collaboration avec la chocolaterie <a class="chocolatier-link" href="https://www.romain-leemann.ch/" target="_blank" rel="noopener">Leemann’s</a>, bien installée en Gruyère.</p>
         </div>
       </div>
       <!-- <p class="quote">Après une longue journée de travail, ou pendant la pause, <span>savourez ce chocolat d’exception.</span></p> -->
@@ -420,7 +425,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
       <div class="head">
         <p class="eyebrow">Les produits</p>
         <h2>Nos boîtes de pralinés, à offrir ou à partager.</h2>
-        <p>Choisissez la collection et la taille qui vous convient. Le contenu de chaque boîte est élaboré avec la chocolaterie Leemann’s.</p>
+        <p>Choisissez la collection et la taille qui vous convient. Le contenu de chaque boîte est élaboré avec la chocolaterie <a class="chocolatier-link" href="https://www.romain-leemann.ch/" target="_blank" rel="noopener">Leemann’s</a>.</p>
       </div>
       <div class="head">
         <h3>La boîte hivernal</h3>
@@ -505,7 +510,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <div class="pro-text">
           <p class="eyebrow">Pour les entreprises</p>
           <h2>Des pralinés à offrir à vos clients et à vos équipes.</h2>
-          <p>Un cadeau de fin d’année élaboré par six étudiants avec la chocolaterie Leemann’s, dans une boîte premium. Dites-nous ce que vous cherchez, on regarde ensemble ce qui est possible.</p>
+          <p>Un cadeau de fin d’année élaboré par six étudiants avec la chocolaterie <a class="chocolatier-link" href="https://www.romain-leemann.ch/" target="_blank" rel="noopener">Leemann’s</a>, dans une boîte premium. Dites-nous ce que vous cherchez, on regarde ensemble ce qui est possible.</p>
         </div>
         <a class="btn" href="https://wa.me/41779877282?text=Bonjour%2C%20je%20vous%20contacte%20au%20sujet%20d%E2%80%99un%20cadeau%20d%E2%80%99entreprise%20%28fin%20d%E2%80%99ann%C3%A9e%29%20%3A%20" target="_blank" rel="noopener">Parler d’un cadeau d’entreprise</a>
       </div>
@@ -604,7 +609,7 @@ footer h4 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font
         <p class="eyebrow">Le projet</p>
         <h2>Six étudiants, une idée bien gourmande.</h2>
         <p>Tout a commencé en 3<sup>e</sup> année au Collège St-Michel : pour notre travail de maturité, on a voulu créer quelque chose qui fait vraiment plaisir. Alors on a choisi le chocolat.</p>
-        <p>À six, on a imaginé nos recettes, puis on les a fait naître avec la chocolaterie Leemann’s, en Gruyère. Le résultat, ce sont des pralinés faits pour être offerts, partagés et savourés, et nous sommes très fiers de vous les présenter.</p>
+        <p>À six, on a imaginé nos recettes, puis on les a fait naître avec la chocolaterie <a class="chocolatier-link" href="https://www.romain-leemann.ch/" target="_blank" rel="noopener">Leemann’s</a>, en Gruyère. Le résultat, ce sont des pralinés faits pour être offerts, partagés et savourés, et nous sommes très fiers de vous les présenter.</p>
         <!--<p class="devise">La Fève, la vraie.</p>-->
       </div>
       <!--<dl class="facts">
