@@ -80,6 +80,12 @@ a { color: inherit; }
 .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; color: var(--accent); }
 .hand { font-family: var(--hand); }
 .chocolatier-link { color: #b9822a; text-decoration: underline; text-underline-offset: 0.15em; }
+:root:not([data-theme="dark"]) #boites .chocolatier-link,
+:root:not([data-theme="dark"]) #projet .chocolatier-link { color: #e8d6b8; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) #boites .chocolatier-link,
+  :root:not([data-theme]) #projet .chocolatier-link { color: #b9822a; }
+}
 
 /* Header */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; margin-inline: -20px; padding: 10px 20px; background: color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
